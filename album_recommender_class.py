@@ -4,7 +4,7 @@
 # An album a title, artist, genre and rating
 # The user can add, edit, delete and rate an album
 # If the user rates an album, recommend them another album (from the same genre)
-
+import random
 
 # Add function
 def add(albums):
@@ -63,6 +63,24 @@ def display_all(albums):
 
 
 # Recommend function
+def recommend(albums, target_album):
+    """
+    Given an album, recommend another album in the same genre
+    """
+    # Find genre
+    genre = target_album["genre"]
+
+    # Add all albums of the same genre into a list
+    recommended_albums = []
+
+    for album in albums:
+        if album["genre"] == genre and album != target_album:
+            recommended_albums.append(album)
+
+    # Randomly choose an album from the list and recommend to user
+    selected_album = random.randint(0, len(recommended_albums)-1)
+    print(albums[selected_album])
+    
 
 
 def menu(albums):
@@ -92,7 +110,8 @@ Welcome to the Album rater and recommender
         elif choice == "P":
             display_all(albums)
         elif choice == "R":
-            pass
+            album = {"title":"Catch a Fire", "artist":"The Wailers", "genre":"Reggae", "rating":None}
+            recommend(albums, album)
         elif choice == "Q":
             print("Goodbye!")
         else:
@@ -103,6 +122,15 @@ Welcome to the Album rater and recommender
 if __name__ == "__main__":
     # declaring the list of dictionary of albums
     albums = []
+
+    # Test cases
+    albums.append({"title":"One Love", "artist":"Bob Marley", "genre":"Reggae", "rating":None})
+    albums.append({"title":"Chantdown Babylon", "artist":"Bob Marley", "genre":"Reggae", "rating":None})
+    albums.append({"title":"Exodus", "artist":"Bob Marley", "genre":"Reggae", "rating":None})
+    albums.append({"title":"Best Of", "artist":"Bob Marley", "genre":"Reggae", "rating":None})
+    albums.append({"title":"Nevermind", "artist":"Nirvana", "genre":"Rock", "rating":None})
+    albums.append({"title":"Catch a Fire", "artist":"The Wailers", "genre":"Reggae", "rating":None})
+
 
     # Call the menu
     menu(albums)
