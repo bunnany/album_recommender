@@ -59,8 +59,40 @@ def display_all(albums):
         print("Rating:", album["rating"])
         print()     # New line after each album
 
-# Rate function
 
+def find_album(albums):
+    """
+    Find an album based on the title and return it
+    """
+    search_title = input("Please enter an album to search for: ")
+
+    for album in albums:
+        if album["title"] == search_title:
+            return album
+
+# Rate function
+def rate_album(albums):
+    """
+    Rate an album and return the collection
+    """
+    search_album = find_album(albums)  # Get an album to rate
+    
+    # Add a rating between 1 and 5 and force input
+    MIN_RATING = 1
+    MAX_RATING = 5
+    while True:
+        try:
+            rating = int(input("Rating {}-{}: ".format(MIN_RATING, MAX_RATING)))
+            if rating < MIN_RATING or rating > MAX_RATING:
+                print("Rating must be between {}-{}: ".format(MIN_RATING, MAX_RATING))
+            else:
+                break
+        except:
+            print("Rating must be between {}-{}: ".format(MIN_RATING, MAX_RATING))
+
+    # Add the rating to the album
+    search_album["rating"] = rating
+    return albums
 
 # Recommend function
 def recommend(albums, target_album):
@@ -94,6 +126,7 @@ def menu(albums):
         print("""
 Welcome to the Album rater and recommender
 (A)dd an album
+(F)ind an album
 (E)dit an album
 (D)elete an album
 (P)rint all albums
@@ -103,6 +136,8 @@ Welcome to the Album rater and recommender
 
         if choice == "A":
             albums = add(albums)
+        elif choice == "F":
+            album = find_album(albums)
         elif choice == "E":
             pass
         elif choice == "D":
