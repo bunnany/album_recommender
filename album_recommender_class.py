@@ -18,21 +18,8 @@ def add(albums):
     artist = input("Artist: ")
     genre = input("Genre: ")
 
-    # Add a rating between 1 and 5 and force input
-    MIN_RATING = 1
-    MAX_RATING = 5
-    while True:
-        try:
-            rating = int(input("Rating {}-{}: ".format(MIN_RATING, MAX_RATING)))
-            if rating < MIN_RATING or rating > MAX_RATING:
-                print("Rating must be between {}-{}: ".format(MIN_RATING, MAX_RATING))
-            else:
-                break
-        except:
-            print("Rating must be between {}-{}: ".format(MIN_RATING, MAX_RATING))
-
     # Add the values to the album dictionary
-    album = {"title":title, "artist":artist, "genre":genre, "rating":rating}
+    album = {"title":title, "artist":artist, "genre":genre, "rating":None}
 
     # Add our album to our albums collection
     albums.append(album)
@@ -99,7 +86,12 @@ def rate_album(albums):
 
     # Add the rating to the album
     search_album["rating"] = rating
+
+    # Recommend an album after rating it
+    recommend(albums, search_album)
+    
     return albums
+
 
 # Recommend function
 def recommend(albums, target_album):
@@ -153,8 +145,7 @@ Welcome to the Album rater and recommender
         elif choice == "P":
             display_all(albums)
         elif choice == "R":
-            album = {"title":"Catch a Fire", "artist":"The Wailers", "genre":"Reggae", "rating":None}
-            recommend(albums, album)
+            rate_album(albums)  # Find an album to rate
         elif choice == "Q":
             print("Goodbye!")
         else:
