@@ -53,13 +53,20 @@ def display_all(albums):
     # Print out each album
     for album in albums:
         # Print out the details of each album
-        print("Title: ", album["title"])
-        print("Artist:", album["artist"])
-        print("Genre:", album["genre"])
-        print("Rating:", album["rating"])
-        print()     # New line after each album
+        print_album(album)
 
 
+def print_album(album):
+    """
+    Takes in an album and prints the details
+    """
+    print("Title: ", album["title"])
+    print("Artist:", album["artist"])
+    print("Genre:", album["genre"])
+    print("Rating:", album["rating"])
+    print()     # New line after each album
+
+    
 def find_album(albums):
     """
     Find an album based on the title and return it
@@ -138,6 +145,7 @@ Welcome to the Album rater and recommender
             albums = add(albums)
         elif choice == "F":
             album = find_album(albums)
+            print_album(album)
         elif choice == "E":
             pass
         elif choice == "D":
